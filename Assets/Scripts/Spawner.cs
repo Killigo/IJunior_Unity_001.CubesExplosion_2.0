@@ -45,6 +45,10 @@ public class Spawner : MonoBehaviour
             foreach (Cube explodableCube in explodableCubes)
                 explodableCube.Explode();
         }
+        else
+        {
+            cube.ExplodeGlobal();
+        }
 
         cube.Destroyed -= OnDestroyed;
         _pool.PutObject(cube);
