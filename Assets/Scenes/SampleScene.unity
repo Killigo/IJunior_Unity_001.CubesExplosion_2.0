@@ -991,7 +991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1892516688}
-  - component: {fileID: 1892516687}
+  - component: {fileID: 1892516689}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -999,22 +999,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1892516687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892516686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5b99e499f070044b5f039882710f9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefabs:
-  - {fileID: 5182695300186601638, guid: 7b9d744b501cee04589eebd5fbfdcbe6, type: 3}
-  _minSpawnCount: 2
-  _maxSpawnCount: 6
 --- !u!4 &1892516688
 Transform:
   m_ObjectHideFlags: 0
@@ -1030,6 +1014,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1892516689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892516686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5b99e499f070044b5f039882710f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5182695300186601638, guid: 7b9d744b501cee04589eebd5fbfdcbe6, type: 3}
+  _minSpawnCount: 2
+  _maxSpawnCount: 6
 --- !u!1 &1904661133
 GameObject:
   m_ObjectHideFlags: 0

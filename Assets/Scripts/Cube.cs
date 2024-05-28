@@ -1,31 +1,35 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Explosion))]
 
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private float _explosionRadius;
-    [SerializeField] private float _explosionForce;
-
-    [NonSerialized] public float SplitChance = 100f;
-
     private Renderer _renderer;
-    private Rigidbody _rigidbody;
+    private Explosion _explosion;
 
     public event Action<Cube> Destroyed;
+
+    public float SplitChance { get; private set; }
 
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
-        _rigidbody = GetComponent<Rigidbody>();
+        _explosion = GetComponent<Explosion>();
+
+        SplitChance = 100f;
     }
 
     private void OnEnable()
     {
         SetRandomColor();
+    }
+
+    public void SetSplitChance(float value)
+    {
+        if (value > 0)
+            SplitChance = value;
     }
 
     public void Segmentation()
@@ -35,36 +39,12 @@ public class Cube : MonoBehaviour
 
     public void Explode()
     {
-        _rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+        _explosion.LocalBurst();
     }
 
     public void ExplodeGlobal()
     {
-        float scaleMultiplier = 1 / transform.localScale.magnitude;
-        float explosionRadius = _explosionRadius * scaleMultiplier;
-        float explosionForce = _explosionForce * scaleMultiplier;
-
-        foreach (Rigidbody explodableObject in GetExplodableObjects(explosionRadius))
-        {
-            Vector3 direction = explodableObject.position - transform.position;
-            float distance = direction.magnitude;
-            float adjustedForce = explosionForce * (1 - (distance / explosionRadius));
-
-            explodableObject.AddExplosionForce(adjustedForce, transform.position, explosionRadius);
-        }
-    }
-
-    private List<Rigidbody> GetExplodableObjects(float explosionRadius)
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
-
-        List<Rigidbody> cubes = new();
-
-        foreach (Collider hit in hits)
-            if (hit.attachedRigidbody != null)
-                cubes.Add(hit.attachedRigidbody);
-
-        return cubes;
+        _explosion.GlobalBurst();
     }
 
     private void SetRandomColor()

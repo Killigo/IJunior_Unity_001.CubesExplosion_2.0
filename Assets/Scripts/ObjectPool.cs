@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class ObjectPool<T> where T : MonoBehaviour
 {
-    private T[] _prefabs;
+    private T _prefab;
     private Transform _container;
     private Queue<T> _pool;
 
     public IEnumerable<T> PooledObject => _pool;
 
-    public ObjectPool(T[] prefabs, Transform container, int prewarmObjectsCount = 0)
+    public ObjectPool(T prefab, Transform container, int prewarmObjectsCount = 0)
     {
-        _prefabs = prefabs;
+        _prefab = prefab;
         _container = container;
         _pool = new Queue<T>();
 
@@ -47,9 +47,7 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     private void CreateObject()
     {
-        int index = Random.Range(0, _prefabs.Length - 1);
-
-        T poolObject = Object.Instantiate(_prefabs[index], _container);
+        T poolObject = Object.Instantiate(_prefab, _container);
         _pool.Enqueue(poolObject);
         poolObject.gameObject.SetActive(false);
     }

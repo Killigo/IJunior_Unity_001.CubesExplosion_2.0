@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Cube[] _prefabs;
+    [SerializeField] private Cube _prefab;
     [SerializeField] private int _minSpawnCount = 2;
     [SerializeField] private int _maxSpawnCount = 6;
 
@@ -16,10 +16,15 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        _pool = new ObjectPool<Cube>(_prefabs, transform, 10);
+        _pool = new ObjectPool<Cube>(_prefab, transform, 10);
 
         Cube cube = SpawnCube();
         cube.transform.position = new Vector3(0, 5, 0);
+    }
+
+    private void OnDestroy()
+    {
+        _pool.Reset();
     }
 
     private void OnDestroyed(Cube cube)
@@ -37,7 +42,7 @@ public class Spawner : MonoBehaviour
                 Cube newCube = SpawnCube();
                 newCube.transform.position = cube.transform.localPosition;
                 newCube.transform.localScale = cube.transform.localScale / _scaleDivisor;
-                newCube.SplitChance = cube.SplitChance / _chanceDivisor;
+                newCube.SetSplitChance(cube.SplitChance / _chanceDivisor);
 
                 explodableCubes.Add(newCube);
             }
