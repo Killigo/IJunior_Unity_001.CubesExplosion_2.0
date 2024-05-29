@@ -19,7 +19,7 @@ public class InputHandler : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, _maxDistance) && hit.collider.TryGetComponent(out Cube cube))
             {
-                cube.Segmentation();
+                cube.Segment();
             }
         }
     }

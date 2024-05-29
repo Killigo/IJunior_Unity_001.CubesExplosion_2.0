@@ -15,12 +15,12 @@ public class Explosion : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void LocalBurst()
+    public void PushLocal()
     {
         _rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
     }
 
-    public void GlobalBurst()
+    public void PushGlobal()
     {
         float scaleMultiplier = 1 / transform.localScale.magnitude;
         float newExplosionRadius = _explosionRadius * scaleMultiplier;

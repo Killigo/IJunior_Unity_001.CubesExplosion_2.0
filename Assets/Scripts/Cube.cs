@@ -32,19 +32,19 @@ public class Cube : MonoBehaviour
             SplitChance = value;
     }
 
-    public void Segmentation()
+    public void Segment()
     {
         Destroyed?.Invoke(this);
     }
 
     public void Explode()
     {
-        _explosion.LocalBurst();
+        _explosion.PushLocal();
     }
 
     public void ExplodeGlobal()
     {
-        _explosion.GlobalBurst();
+        _explosion.PushGlobal();
     }
 
     private void SetRandomColor()
